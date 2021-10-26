@@ -1,0 +1,3 @@
+---
+directory: "{{ mecm_scripts_dir }}"
+file:

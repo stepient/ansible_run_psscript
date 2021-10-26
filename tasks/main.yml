@@ -1,0 +1,24 @@
+---
+- name: Validate variable - directory
+  assert:
+    that: 
+      - directory is not none
+      - directory is defined
+    fail_msg: directory variable is required
+
+- name: Validate variable - file_name
+  assert:
+    that: 
+      - file_name is not none
+      - file_name is defined
+    fail_msg: file_name variable is required
+
+- name: Run powershell script
+  win_shell: |
+    Set-Location "{{ directory }}"
+    powershell.exe -executionpolicy bypass -file ".\{{ file_name }}"
+  register: script_result
+
+- name: Display script output
+  debug:
+    var: script_result.stdout_lines
